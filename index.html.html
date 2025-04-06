@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Priyanshul | Personal Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-dark: #4338CA;
+      --secondary: #EC4899;
+      --dark: #111827;
+      --light: #F9FAFB;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .code-font {
+      font-family: 'Fira Code', monospace;
+    }
+    
+    .bg-gradient-custom {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .scroll-downs {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 34px;
+      height: 55px;
+    }
+    
+    .mousey {
+      width: 3px;
+      padding: 10px 15px;
+      height: 35px;
+      border: 2px solid #fff;
+      border-radius: 25px;
+      opacity: 0.75;
+      box-sizing: content-box;
+    }
+    
+    .scroller {
+      width: 3px;
+      height: 10px;
+      border-radius: 25%;
+      background-color: #fff;
+      animation-name: scroll;
+      animation-duration: 2.5s;
+      animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+      animation-iteration-count: infinite;
+    }
+    
+    @keyframes scroll {
+      0% { opacity: 0; transform: translateY(0); }
+      10% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(15px); }
+    }
+    
+    .project-card {
+      overflow: hidden;
+    }
+    
+    .project-card img {
+      transition: transform 0.5s ease;
+    }
+    
+    .project-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .skill-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .skill-icon:hover {
+      transform: translateY(-5px);
+      color: var(--primary);
+    }
+    
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .mobile-menu {
+      transition: transform 0.3s ease-in-out;
+      transform: translateX(-100%);
+    }
+    
+    .mobile-menu.show {
+      transform: translateX(0);
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 0;
+      top: 5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: calc(100% + 20px);
+      left: 7px;
+      top: 5px;
+      background-color: #e5e7eb;
+      z-index: -1;
+    }
+    
+    .timeline-item:last-child::after {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Navigation -->
+  <header class="fixed w-full bg-white shadow-md z-50">
+    <nav class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <div class="text-2xl font-bold">
+            <span class="text-gradient">Priyanshul</span>
+          </div>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex">
+          <ul class="flex space-x-8 font-medium">
+            <li><a href="#home" class="nav-link hover:text-indigo-600">Home</a></li>
+            <li><a href="#about" class="nav-link hover:text-indigo-600">About</a></li>
+            <li><a href="#interests" class="nav-link hover:text-indigo-600">Interests</a></li>
+            <li><a href="#projects" class="nav-link hover:text-indigo-600">Science Projects</a></li>
+            <li><a href="#art" class="nav-link hover:text-indigo-600">Paintings</a></li>
+            <li><a href="#coding" class="nav-link hover:text-indigo-600">Coding</a></li>
+            <li><a href="#contact" class="nav-link hover:text-indigo-600">Contact</a></li>
+          </ul>
+        </div>
+        
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button id="menu-toggle" class="focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Navigation -->
+      <div id="mobile-menu" class="mobile-menu absolute top-16 left-0 bg-white w-full shadow-md md:hidden">
+        <ul class="py-4 px-6 space-y-4">
+          <li><a href="#home" class="block py-2 hover:text-indigo-600">Home</a></li>
+          <li><a href="#about" class="block py-2 hover:text-indigo-600">About</a></li>
+          <li><a href="#interests" class="block py-2 hover:text-indigo-600">Interests</a></li>
+          <li><a href="#projects" class="block py-2 hover:text-indigo-600">Science Projects</a></li>
+          <li><a href="#art" class="block py-2 hover:text-indigo-600">Paintings</a></li>
+          <li><a href="#coding" class="block py-2 hover:text-indigo-600">Coding</a></li>
+          <li><a href="#contact" class="block py-2 hover:text-indigo-600">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen relative flex items-center justify-center bg-gradient-custom text-white pt-16">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="absolute bottom-0">
+        <path fill="#F9FAFB" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,154.7C384,128,480,96,576,90.7C672,85,768,107,864,144C960,181,1056,235,1152,245.3C1248,256,1344,224,1392,208L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+    <div class="text-center px-6 z-10 mt-16">
+      <div class="animate-on-scroll">
+        <p class="uppercase tracking-widest mb-4 text-indigo-200">Welcome to my digital space</p>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Hi, I'm <span class="underline decoration-wavy decoration-pink-500">Priyanshul</span></h1>
+        <div class="flex flex-wrap justify-center items-center gap-2 mb-8">
+          <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">8th Grade Student</span>
+          <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">DAV Bilaspur</span>
+          <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Science Explorer</span>
+          <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Painter</span>
+          <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Aspiring Coder</span>
+        </div>
+        <div class="flex flex-wrap gap-4 justify-center mt-8">
+          <a href="#about" class="bg-white text-indigo-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">Explore My World</a>
+          <a href="#contact" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-all">Get In Touch</a>
+        </div>
+      </div>
+    
+      <!-- Scroll indicator -->
+      <div class="scroll-downs">
+        <div class="mousey">
+          <div class="scroller"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">About Me</h2>
+        <div class="h-1 w-24 bg-gradient-custom mx-auto rounded-full"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="animate-on-scroll">
+          <img src="/api/placeholder/400/400" alt="Priyanshul" class="rounded-lg shadow-xl mx-auto" />
+        </div>
+        
+        <div class="animate-on-scroll">
+          <p class="text-lg leading-relaxed mb-6">Hey there! I'm <span class="font-bold text-indigo-600">Priyanshul</span>, a curious 8th grader at DAV School in Bilaspur, Himachal Pradesh.</p>
+          
+          <p class="text-lg leading-relaxed mb-6">My endless curiosity drives me to explore how things work around me. I love discovering the beauty of all districts in Himachal Pradesh, working on exciting science projects, expressing my thoughts through paintings, and learning new coding skills.</p>
+          
+          <p class="text-lg leading-relaxed mb-8">Human biology and technological breakthroughs fascinate me, and I enjoy reading about these topics in my free time. I believe every day is a new opportunity to learn something amazing!</p>
+          
+          <div class="mt-8">
+            <h3 class="font-bold text-xl mb-4">My Journey So Far</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <h4 class="font-semibold">Started School at DAV Bilaspur</h4>
+                <p class="text-gray-600">Beginning of my academic adventure</p>
+              </div>
+              <div class="timeline-item">
+                <h4 class="font-semibold">First Science Project</h4>
+                <p class="text-gray-600">Created a working volcano model</p>
+              </div>
+              <div class="timeline-item">
+                <h4 class="font-semibold">Discovered Painting</h4>
+                <p class="text-gray-600">Found my creative expression</p>
+              </div>
+              <div class="timeline-item">
+                <h4 class="font-semibold">Started Learning HTML</h4>
+                <p class="text-gray-600">First steps into the coding world</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interests Section -->
+  <section id="interests" class="py-24 px-6 bg-gray-100">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">My Interests</h2>
+        <div class="h-1 w-24 bg-gradient-custom mx-auto rounded-full"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto animate-on-scroll">Here are the things that spark my curiosity and bring joy to my learning journey.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 card animate-on-scroll">
+          <div class="text-4xl text-indigo-600 mb-4">
+            <i class="fas fa-dna"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Human Biology</h3>
+          <p class="text-gray-600">Fascinated by how the human body works, from cells to systems. The complexity and elegance of our biology is amazing to learn about.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-8 card animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="text-4xl text-indigo-600 mb-4">
+            <i class="fas fa-flask"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Science Projects</h3>
+          <p class="text-gray-600">Love creating hands-on science experiments that bring concepts to life and make learning fun and interactive.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-8 card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="text-4xl text-indigo-600 mb-4">
+            <i class="fas fa-mountain"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Himachal Pradesh</h3>
+          <p class="text-gray-600">Exploring the diverse districts and rich cultural heritage of my beautiful home state, Himachal Pradesh.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-8 card animate-on-scroll">
+          <div class="text-4xl text-indigo-600 mb-4">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Drawing & Painting</h3>
+          <p class="text-gray-600">Expressing ideas and emotions through colors and shapes, creating artwork that tells stories and captures moments.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-8 card animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="text-4xl text-indigo-600 mb-4">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Coding</h3>
+          <p class="text-gray-600">Learning HTML, Python, and Scratch to build websites and create simple programs and games.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-8 card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="text-4xl text-indigo-600 mb-4">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Reading</h3>
+          <p class="text-gray-600">Discovering new ideas and adventures through books about science, technology, and human achievements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Science Projects Section -->
+  <section id="projects" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">Science Projects</h2>
+        <div class="h-1 w-24 bg-gradient-custom mx-auto rounded-full"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto animate-on-scroll">Hands-on experiments that help me understand scientific concepts better.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Volcano Model" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-fire text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold">Working Volcano Model 🌋</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Using baking soda and vinegar to create a chemical reaction that mimics a volcanic eruption, demonstrating how pressure builds up and releases in real volcanoes.</p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Chemistry</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Earth Science</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Model Building</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Solar System Model" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-globe text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold">Solar System Craft 🪐</h3>
+            </div>
+            <p class="text-gray-600 mb-4">A scale model of our solar system created from recycled materials and carefully painted to represent the unique characteristics of each planet.</p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Astronomy</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Planetary Science</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Recycled Crafts</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Electric Circuit" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-bolt text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold">Simple Electric Circuit ⚡</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Built a functional electric circuit with switches, bulbs, and batteries to understand how electricity flows and powers our everyday devices.</p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Physics</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Electricity</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Circuit Design</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Plant Growth Experiment" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-seedling text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold">Plant Growth Experiment 🌱</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Studied how different light conditions affect plant growth by growing seeds in various environments and measuring their progress over time.</p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Biology</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Botany</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Data Collection</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Art Gallery Section -->
+  <section id="art" class="py-24 px-6 bg-gray-100">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">My Paintings</h2>
+        <div class="h-1 w-24 bg-gradient-custom mx-auto rounded-full"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto animate-on-scroll">Colors and canvas are my way of expressing imagination and capturing the beauty of our world.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Sunset Painting" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Sunset over the Hills</h3>
+            <p class="text-gray-600">Watercolors on paper, inspired by the beautiful sunsets in Himachal Pradesh.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Solar System Painting" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Our Solar System</h3>
+            <p class="text-gray-600">Acrylic on canvas, showing all planets with their unique features.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Village Landscape" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Village in the Valley</h3>
+            <p class="text-gray-600">Oil pastels, depicting a traditional Himachali village.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Abstract Art" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Abstract Patterns</h3>
+            <p class="text-gray-600">Mixed media on paper, exploring shapes and colors.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Mountain Range" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Himalayan Range</h3>
+            <p class="text-gray-600">Pencil sketch with watercolor wash, showing snow-capped mountains.</p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card project-card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="h-64 overflow-hidden">
+            <img src="/api/placeholder/600/400" alt="Wildlife Painting" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Local Wildlife</h3>
+            <p class="text-gray-600">Acrylic on canvas, featuring animals found in Himachal forests.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coding Projects Section -->
+  <section id="coding" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">Coding Journey</h2>
+        <div class="h-1 w-24 bg-gradient-custom mx-auto rounded-full"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto animate-on-scroll">My adventures in learning to code and build cool digital things.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card animate-on-scroll">
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-code text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold code-font">My First HTML Page</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Created my very first webpage using HTML with headings, paragraphs, images, and links. This was my introduction to web development!</p>
+            
+            <div class="bg-gray-100 p-4 rounded-lg code-font overflow-x-auto text-sm my-6">
+              <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;My First Webpage&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello World!&lt;/h1&gt;
+  &lt;p&gt;This is my first webpage.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">HTML</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Web Dev</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Beginner</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-gamepad text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold code-font">Scratch Game</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Designed a fun game using Scratch where a character collects stars and scores points while avoiding obstacles. My first experience with programming logic!</p>
+            
+            <div class="bg-gray-100 p-4 rounded-lg overflow-hidden my-6">
+              <img src="/api/placeholder/600/300" alt="Scratch Game Screenshot" class="rounded-lg w-full" />
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Scratch</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Game Development</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Visual Programming</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card animate-on-scroll">
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-calculator text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold code-font">Python Calculator</h3>
+            </div>
+            <p class="text-gray-600 mb-4">Built a simple calculator using Python that can perform basic arithmetic operations. My first step into text-based programming!</p>
+            
+            <div class="bg-gray-100 p-4 rounded-lg code-font overflow-x-auto text-sm my-6">
+              <pre><code># Simple Calculator in Python
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero."
+    return x / y
+
+# Get user input
+print("Select operation:")
+print("1. Add")
+print("2. Subtract")
+print("3. Multiply")
+print("4. Divide")</code></pre>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Python</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Functions</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">User Input</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-lg card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="p-8">
+            <div class="flex items-center mb-4">
+              <div class="bg-indigo-100 text-indigo-600 rounded-full p-2 mr-4">
+                <i class="fas fa-desktop text-xl"></i>
+              </div>
+              <h3 class="text-2xl font-bold code-font">Personal Website</h3>
+            </div>
+            <p class="text-gray-600 mb-4">This very website you're browsing! Created with HTML and enhanced with CSS for styling and JavaScript for interactive features.</p>
+            
+            <div class="mt-6 flex justify-center">
+              <div class="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
+                <div class="absolute inset-0 bg-gradient-custom opacity-10"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="bg-white px-4 py-2 rounded-lg shadow text-indigo-600 font-semibold">You're looking at it now! 😊</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">HTML</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">CSS</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
+              <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Web Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-16 text-center animate-on-scroll">
+        <h3 class="text-2xl font-bold mb-6">My Coding Skills</h3>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+          <div class="text-center">
+            <div class="skill-icon text-5xl text-indigo-500 mb-4">
+              <i class="fab fa-html5"></i>
+            </div>
+            <h4 class="font-semibold">HTML</h4>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" style="width: 75%"></div>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="skill-icon text-5xl text-indigo-500 mb-4">
+              <i class="fab fa-css3-alt"></i>
+            </div>
+            <h4 class="font-semibold">CSS</h4>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="skill-icon text-5xl text-indigo-500 mb-4">
+              <i class="fab fa-js"></i>
+            </div>
+            <h4 class="font-semibold">JavaScript</h4>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" style="width: 40%"></div>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="skill-icon text-5xl text-indigo-500 mb-4">
+              <i class="fab fa-python"></i>
+            </div>
+            <h4 class="font-semibold">Python</h4>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" style="width: 50%"></div>
+            </div>
+          </div>
+          
+          <div class="text-center">
+            <div class="skill-icon text-5xl text-indigo-500 mb-4">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h4 class="font-semibold">Scratch</h4>
+            <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 rounded-full" style="width: 80%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 px-6 bg-gray-100">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 animate-on-scroll">Contact Me</h2>
+        <div class="h-1 w-24 bg-gradient-custom mx-auto rounded-full"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto animate-on-scroll">Have a question or want to connect? Feel free to reach out!</p>
+      </div>
+      
+      <div class="grid md:grid-cols-5 gap-12">
+        <div class="md:col-span-2 animate-on-scroll">
+          <div class="bg-white rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">Get In Touch</h3>
+            
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <div class="bg-indigo-100 text-indigo-600 rounded-full p-3 mr-4">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Location</h4>
+                  <p class="text-gray-600">Bilaspur, Himachal Pradesh, India</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="bg-indigo-100 text-indigo-600 rounded-full p-3 mr-4">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Email</h4>
+                  <p class="text-gray-600">priyanshul@example.com</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="bg-indigo-100 text-indigo-600 rounded-full p-3 mr-4">
+                  <i class="fas fa-school"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold">School</h4>
+                  <p class="text-gray-600">DAV School, Bilaspur</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <h4 class="font-semibold mb-4">Follow Me</h4>
+              <div class="flex space-x-4">
+                <a href="#" class="bg-indigo-100 text-indigo-600 rounded-full p-3 hover:bg-indigo-200 transition-colors">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="bg-indigo-100 text-indigo-600 rounded-full p-3 hover:bg-indigo-200 transition-colors">
+                  <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="bg-indigo-100 text-indigo-600 rounded-full p-3 hover:bg-indigo-200 transition-colors">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="md:col-span-3 animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="bg-white rounded-xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">Send Me a Message</h3>
+            
+            <form class="space-y-6">
+              <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block mb-2 font-medium text-gray-700">Your Name</label>
+                  <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" placeholder="John Doe" required />
+                </div>
+                
+                <div>
+                  <label for="email" class="block mb-2 font-medium text-gray-700">Your Email</label>
+                  <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" placeholder="john@example.com" required />
+                </div>
+              </div>
+              
+              <div>
+                <label for="subject" class="block mb-2 font-medium text-gray-700">Subject</label>
+                <input type="text" id="subject" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" placeholder="How can I help you?" required />
+              </div>
+              
+              <div>
+                <label for="message" class="block mb-2 font-medium text-gray-700">Your Message</label>
+                <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" placeholder="Type your message here..." required></textarea>
+              </div>
+              
+              <button type="submit" class="bg-gradient-custom text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all transform hover:-translate-y-1 shadow-lg">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Priyanshul</h3>
+          <p class="text-gray-400">8th Grade Student at DAV School, Bilaspur. Exploring science, art, and coding one day at a time.</p>
+        </div>
+        
+        <div>
+          <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="#projects" class="text-gray-400 hover:text-white transition-colors">Science Projects</a></li>
+            <li><a href="#art" class="text-gray-400 hover:text-white transition-colors">Paintings</a></li>
+            <li><a href="#coding" class="text-gray-400 hover:text-white transition-colors">Coding</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-xl font-semibold mb-4">Newsletter</h4>
+          <p class="text-gray-400 mb-4">Subscribe to get updates on my latest projects!</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg w-full focus:outline-none text-gray-800" />
+            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-r-lg transition-colors">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p>&copy; 2025 Priyanshul | Built with ❤️, Science & Curiosity</p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" class="hover:text-indigo-400 transition-colors">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="hover:text-indigo-400 transition-colors">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="#" class="hover:text-indigo-400 transition-colors">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top button -->
+  <a href="#home" id="back-to-top" class="fixed bottom-8 right-8 bg-indigo-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all hover:bg-indigo-700">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('show');
+    });
+    
+    // Close mobile menu when clicking a link
+    const mobileLinks = document.querySelectorAll('#mobile-menu a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('show');
+      });
+    });
+    
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.add('opacity-0', 'invisible');
+        backToTopButton.classList.remove('opacity-100', 'visible');
+      }
+    });
+    
+    // Scroll animation
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    
+    const checkIfInView = () => {
+      animatedElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('is-visible');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', checkIfInView);
+    window.addEventListener('load', checkIfInView);
+  </script>
+</body>
+</html>
